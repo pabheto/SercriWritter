@@ -1,0 +1,28 @@
+.btn,
+.btn-sm,
+.btn-xs {
+  @apply font-medium text-sm inline-flex items-center justify-center shadow-sm transition duration-150 ease-in-out;
+}
+
+.btn {
+  @apply px-4 py-2 border-2 rounded-md text-sm transition duration-150 ease-in-out !important;
+}
+
+.text-dark {
+}
+
+.btn-light {
+  @apply hover:bg-gray-200;
+}
+
+.btn-blue {
+  @apply text-white bg-blue-600 hover:bg-blue-700;
+}
+
+.btn-danger {
+  @apply text-white bg-red-600 hover:bg-red-700;
+}
+
+.type-button {
+  @apply text-3xl bg-carmesi px-20 py-10 rounded-full
+}
