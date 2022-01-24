@@ -171,33 +171,56 @@ const Home: NextPage = () => {
 
   return (
     <div id="MainContainer" className="w-full h-full font-seriff font-bold">
+      <div id="ArrowsContainer" className="absolute top-1/2 left-1/3">
+        <div className="flex">
+          <div className="w-1/3"></div>
+          <div className="w-1/3">
+            <button className="type-button" onClick={moveUp}>
+              AR
+            </button>
+          </div>
+          <div className="w-1/3"></div>
+        </div>
+        <div className="flex">
+          <div className="w-1/3">
+            <button className="type-button " onClick={moveLeft}>
+              LE
+            </button>
+          </div>
+          <div className="w-1/3">
+            <div
+              id="LetterContainer"
+              className="p-5 text-center text-carmesi text-8xl rounded-full border-2 border-black"
+              onClick={() => write(pendingCharacter)}
+            >
+              {pendingCharacter}
+            </div>
+          </div>
+          <div className="w-1/3">
+            <button className="type-button " onClick={moveRight}>
+              RI
+            </button>
+          </div>
+        </div>
+        <div className="flex">
+          <div className="w-1/3"></div>
+          <div className="w-1/3">
+            <button className="type-button" onClick={moveDown}>
+              AB
+            </button>
+          </div>
+          <div className="w-1/3"></div>
+        </div>
+      </div>
+
       <div id="TopBar">
         <div className="buttons-container w-full text-center">
           <div className="absolute top-0 left-1/2">{cursorPosition}</div>
+
           <button
-            className="type-button absolute bottom-0 left-0"
-            onClick={moveUp}
-          >
-            Arriba
-          </button>
-          <button
-            className="type-button absolute bottom-0 right-0"
-            onClick={moveDown}
-          >
-            Abajo
-          </button>
-          <button className="type-button absolute left-0" onClick={moveLeft}>
-            Izquierda
-          </button>
-          <button className="type-button absolute right-0" onClick={moveRight}>
-            Derecha
-          </button>
-          <button
-            className="type-button bg-white border-8 border-black absolute left-0 top-1/2 font-bold"
+            className="p-20 border-8 border-black absolute left-0 top-1/2 font-bold rounded-full bg-carmesi"
             onClick={() => setShowToolbar(!showToolbar)}
-          >
-            Herramientas
-          </button>
+          ></button>
           <button
             className={
               listening
@@ -258,7 +281,7 @@ const Home: NextPage = () => {
       >
         <pre
           id="TextContainer"
-          className="border-2 border-gray-200 w-1/2"
+          className="border-2 border-gray-200 w-2/3 text-8xl"
           style={{
             whiteSpace: "pre-wrap",
             wordWrap: "break-word",
@@ -275,10 +298,10 @@ const Home: NextPage = () => {
                 }
               })
             : writtenText}
-          <span className="text-carmesi">{pendingCharacter}</span>
+          {/*<span className="text-carmesi">{pendingCharacter}</span>*/}
         </pre>
       </div>
-      <div id="BottomBar" className="w-full text-center">
+      <div id="BottomBar" className="w-full text-center absolute top-0">
         <button className="type-button" onClick={erase}>
           Borrar
         </button>
@@ -286,7 +309,7 @@ const Home: NextPage = () => {
           Escribir
         </button>
         <br />
-        <div id="PositionsCheatsheet" className="text-6xl">
+        {/*<div id="PositionsCheatsheet" className="text-6xl">
           <span>
             {position[0]} - {position[1]}
           </span>
@@ -314,6 +337,7 @@ const Home: NextPage = () => {
             );
           })}
         </div>
+        */}
       </div>
     </div>
   );
