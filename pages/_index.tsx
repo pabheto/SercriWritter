@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 import SpeechRecognition, {
@@ -13,9 +13,6 @@ const Home: NextPage = () => {
   const [showToolbar, setShowToolbar] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
 
-    // Documents storage
-    
-
   // Speech
   const {
     transcript,
@@ -24,7 +21,6 @@ const Home: NextPage = () => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  const writeContainerRef = useRef();
   const [writtenText, setWrittenText] = useState("");
   const [pendingCharacter, setPendingCharacter] = useState("");
 
@@ -200,9 +196,6 @@ const Home: NextPage = () => {
     if (cursorPosition > textLength) {
       setCursorPosition(textLength - 1);
     }
-
-    writeContainerRef.current.scrollTop =
-      writeContainerRef.current.scrollHeight;
   }, [writtenText]);
 
   useEffect(() => {
@@ -222,86 +215,79 @@ const Home: NextPage = () => {
 
   return (
     <div id="MainContainer" className="w-full h-full font-seriff font-bold">
-      <div id="WrittingToolContainer">
-        <div
-          className="absolute w-full flex justify-center"
-          style={{ bottom: "50px" }}
-        >
-          <div className="">
+      <div
+        id="WrittingToolContainer"
+        className="absolute bottom-1/4 w-full mx-auto text-center flex justify-center"
+      >
+        <div className="w-1/3">
+          <div className="flex justify-center">
+            <div className="w-1/3 bg-red-600"></div>
+          </div>
+          <div className="flex">
+            <div className="w-1/3 bg-red-600"></div>
             <div
-              id="SpecialCharacters"
-              className="flex justify-between space-x-20 mb-10 text-5xl"
+              id="LetterContainer"
+              className="p-2 text-carmesi text-8xl rounded-full border-2 border-black flex justify-center space-x-5"
+              onClick={() => write(pendingCharacter)}
             >
-              <div className="bg-carmesi px-2" onClick={() => write(" ")}>
-                ESP
-              </div>
-              <div className="bg-carmesi px-2" onClick={() => write(",")}>
-                ,
-              </div>
-              <div className="bg-carmesi px-2" onClick={() => write(":")}>
-                :
-              </div>
+              <div>{getCharacterAtPosition(getPositionWithOffset(-1))}</div>
+              <div>{pendingCharacter}</div>
+              <div>{getCharacterAtPosition(getPositionWithOffset(1))}</div>
             </div>
-            <div className="flex justify-center">
-              <div
-                className="bg-carmesi h-20 w-20"
-                id="MoveUpButton"
-                onClick={moveUp}
-              ></div>
+            <div className="w-1/3  bg-red-600"></div>
+          </div>
+          <div></div>
+        </div>
+        {/*<div className="w-1/4">
+          <div className="flex">
+            <div className="w-1/3"></div>
+            <div className="w-1/3">
+              <button className="type-button" onClick={moveUp}>
+                AR
+              </button>
             </div>
-            <div className="flex justify-center space-x-10">
+            <div className="w-1/3"></div>
+          </div>
+          <div className="flex">
+            <div className="w-1/3">
+              <button className="type-button " onClick={moveLeft}>
+                LE
+              </button>
+            </div>
+            <div className="">
               <div
-                className="bg-carmesi h-20 w-20"
-                id="MoveLeftButton"
-                onClick={moveLeft}
-              ></div>
-              <div
-                id="LetterSelector"
-                className="text-8xl space-x-10 flex justify-center"
+                id="LetterContainer"
+                className="p-4 text-center text-carmesi text-8xl rounded-full border-2 border-black flex"
+                onClick={() => write(pendingCharacter)}
               >
-                <div
-                  onClick={() => {
-                    write(getCharacterAtPosition(getPositionWithOffset(-1)));
-                  }}
-                >
-                  {getCharacterAtPosition(getPositionWithOffset(-1))}
-                </div>
-                <div
-                  onClick={() => {
-                    write(pendingCharacter);
-                  }}
-                >
-                  {getCharacterAtPosition(getPositionWithOffset(0))}
-                </div>
-                <div
-                  onClick={() => {
-                    write(getCharacterAtPosition(getPositionWithOffset(1)));
-                  }}
-                >
-                  {getCharacterAtPosition(getPositionWithOffset(1))}
-                </div>
+                <div>{getCharacterAtPosition(getPositionWithOffset(-1))}</div>
+                <div>{pendingCharacter}</div>
+                <div>{getCharacterAtPosition(getPositionWithOffset(1))}</div>
               </div>
-              <div
-                className="bg-carmesi h-20 w-20"
-                id="MoveRightButton"
-                onClick={moveRight}
-              ></div>
             </div>
-            <div className="flex justify-center">
-              <div
-                className="bg-carmesi h-20 w-20"
-                id="MoveDownButton"
-                onClick={moveDown}
-              ></div>
+            <div className="w-1/3">
+              <button className="type-button " onClick={moveRight}>
+                RI
+              </button>
             </div>
           </div>
-        </div>
+          <div className="flex">
+            <div className="w-1/3"></div>
+            <div className="w-1/3">
+              <button className="type-button" onClick={moveDown}>
+                AB
+              </button>
+            </div>
+            <div className="w-1/3"></div>
+          </div>
+  </div>*/}
       </div>
       <div id="TopBar">
         <div className="buttons-container w-full text-center">
           <div className="absolute top-0 left-1/2">{cursorPosition}</div>
+
           <button
-            className="bg-carmesi rounded-full p-20 border-8 border-black absolute left-0 top-1/2"
+            className="p-20 border-8 border-black absolute left-0 top-1/2 font-bold rounded-full bg-carmesi"
             onClick={() => setShowToolbar(!showToolbar)}
           ></button>
           <button
@@ -314,9 +300,18 @@ const Home: NextPage = () => {
           >
             Audio
           </button>
+          <button
+            className={
+              cursorMode
+                ? "type-button absolute right-0 top-1/2 bg-blue-600"
+                : "type-button absolute right-0 top-1/2"
+            }
+            onClick={toggleCursorMode}
+          >
+            Cursor
+          </button>
         </div>
       </div>
-
       <div
         id="ToolsBar"
         className={
@@ -347,65 +342,45 @@ const Home: NextPage = () => {
           >
             Copiar
           </button>
-          <button
-            className={
-              cursorMode
-                ? "type-button bg-blue-600"
-                : "type-button bg-black text-white"
-            }
-            onClick={toggleCursorMode}
-          >
-            Cursor
-          </button>
         </div>
       </div>
       <div
         id="WriteContainer"
-        className="text-6xl text-center mt-10 flex justify-center space-x-10 uppercase"
+        className="h-2/3 text-6xl text-center p-20 flex justify-center text-center"
       >
-        <div className="w-1/4 flex justify-end">
-          <div className="bg-carmesi h-20 w-20 my-auto" onClick={erase}></div>
-        </div>
-        <div className="w-2/5 flex justify-center">
-          <pre
-            id="TextContainer"
-            className="border-2 border-gray-200 h-32 text-right w-full"
-            ref={writeContainerRef}
-            style={{
-              whiteSpace: "pre-wrap",
-              wordWrap: "break-word",
-              overflowX: "hidden",
-              overflowY: "auto",
-            }}
-          >
-            {cursorMode
-              ? writtenText.split("").map((item, index) => {
-                  if (index === cursorPosition) {
-                    return <span className="text-carmesi">{item}</span>;
-                  } else {
-                    return <span>{item}</span>;
-                  }
-                })
-              : writtenText}
-          </pre>
-        </div>
-        <div className="w-1/4 flex justify-start ">
-          <div
-            className="bg-carmesi h-20 w-20 my-auto"
-            onClick={() => write("\n")}
-          ></div>
-        </div>
+        <pre
+          id="TextContainer"
+          className="border-2 border-gray-200 w-2/3 text-8xl"
+          style={{
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            overflowX: "hidden",
+            overflowY: "auto",
+          }}
+        >
+          {cursorMode
+            ? writtenText.split("").map((item, index) => {
+                if (index === cursorPosition) {
+                  return <span className="text-carmesi">{item}</span>;
+                } else {
+                  return { item };
+                }
+              })
+            : writtenText}
+          {/*<span className="text-carmesi">{pendingCharacter}</span>*/}
+        </pre>
       </div>
-      <div
-        id="Cheatsheet"
-        className="text-center absolute"
-        style={{
-          bottom: "0px",
-          right: "5px",
-        }}
-      >
+
+      <div id="BottomBar" className="w-full text-center absolute top-0">
+        <button className="type-button" onClick={erase}>
+          Borrar
+        </button>
+        <button className="type-button" onClick={() => write(pendingCharacter)}>
+          Escribir {getPositionWithOffset(-1)} {position}{" "}
+          {getPositionWithOffset(1)}
+        </button>
         <br />
-        <div id="PositionsCheatsheet" className="text-6xl">
+        {/*<div id="PositionsCheatsheet" className="text-6xl">
           <span>
             {position[0]} - {position[1]}
           </span>
@@ -433,6 +408,7 @@ const Home: NextPage = () => {
             );
           })}
         </div>
+        */}
       </div>
     </div>
   );
