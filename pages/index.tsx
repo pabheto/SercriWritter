@@ -357,6 +357,16 @@ const Home: NextPage = () => {
           >
             Cursor
           </button>
+          <button
+            className={
+              cursorMode
+                ? "type-button bg-blue-600"
+                : "type-button bg-black text-white"
+            }
+            onClick={toggleCursorMode}
+          >
+            Teleprompter
+          </button>
         </div>
       </div>
       <div
