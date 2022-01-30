@@ -13,8 +13,7 @@ const Home: NextPage = () => {
   const [showToolbar, setShowToolbar] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
 
-    // Documents storage
-    
+  // Documents storage
 
   // Speech
   const {
@@ -41,12 +40,8 @@ const Home: NextPage = () => {
     if (offset > 0) {
       for (let i = 0; i < offset; i++) {
         currentX += 1;
-        if (currentX > 4) {
+        if (currentX > 9) {
           currentX = 0;
-          currentY += 1;
-        }
-        if (currentY > 5) {
-          currentY = 0;
         }
       }
     } else {
@@ -54,11 +49,7 @@ const Home: NextPage = () => {
       for (let i = 0; i < offset; i++) {
         currentX -= 1;
         if (currentX < 0) {
-          currentX = 4;
-          currentY -= 1;
-        }
-        if (currentY < 0) {
-          currentY = 5;
+          currentX = 9;
         }
       }
     }
@@ -67,12 +58,10 @@ const Home: NextPage = () => {
   };
 
   const characters = [
-    ["A", "B", "C", "D", "E"],
-    ["F", "G", "H", "I", "J"],
-    ["K", "L", "M", "N", "O"],
-    ["P", "Q", "R", "S", "T"],
-    ["U", "V", "W", "X", "Y"],
-    ["Z", "Z", "Z", "Z", "Z"],
+    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"],
+    ["Z", "X", "C", "V", "B", "N", "M", "M", "M", "M"],
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
   ];
 
   const moveUp = () => {
@@ -80,7 +69,7 @@ const Home: NextPage = () => {
       moveCursorRight();
     } else {
       if (position[0] === 0) {
-        setPosition([5, position[1]]);
+        setPosition([3, position[1]]);
       } else {
         setPosition([(position[0] - 1) % 6, position[1]]);
       }
@@ -91,7 +80,7 @@ const Home: NextPage = () => {
     if (cursorMode) {
       moveCursorLeft();
     } else {
-      setPosition([(position[0] + 1) % 6, position[1]]);
+      setPosition([(position[0] + 1) % 4, position[1]]);
     }
   };
 
@@ -100,9 +89,9 @@ const Home: NextPage = () => {
       moveCursorLeft();
     } else {
       if (position[1] === 0) {
-        setPosition([position[0], 4]);
+        setPosition([position[0], 9]);
       } else {
-        setPosition([position[0], (position[1] - 1) % 5]);
+        setPosition([position[0], (position[1] - 1) % 10]);
       }
     }
   };
@@ -111,7 +100,7 @@ const Home: NextPage = () => {
     if (cursorMode) {
       moveCursorRight();
     } else {
-      setPosition([position[0], (position[1] + 1) % 5]);
+      setPosition([position[0], (position[1] + 1) % 10]);
     }
   };
 
@@ -228,18 +217,41 @@ const Home: NextPage = () => {
           style={{ bottom: "50px" }}
         >
           <div className="">
-            <div
-              id="SpecialCharacters"
-              className="flex justify-between space-x-20 mb-10 text-5xl"
-            >
-              <div className="bg-carmesi px-2" onClick={() => write(" ")}>
-                ESP
+            <div id="SpecialCharacters" className=" mb-10 text-6xl">
+              <div className="flex justify-between space-x-20 mb-2">
+                <div
+                  className="px-10 rounded-full bg-white border-4 border-black px-2"
+                  onClick={() => write(",")}
+                >
+                  ,
+                </div>
+                <div
+                  className="px-10 rounded-full bg-white border-4 border-black"
+                  onClick={() => write(".")}
+                >
+                  ;
+                </div>
+                <div
+                  className="px-10 rounded-full bg-white border-4 border-black"
+                  onClick={() => write(".")}
+                >
+                  .
+                </div>
+                <div
+                  className="px-10 rounded-full bg-white border-4 border-black"
+                  onClick={() => write(":")}
+                >
+                  :
+                </div>
               </div>
-              <div className="bg-carmesi px-2" onClick={() => write(",")}>
-                ,
-              </div>
-              <div className="bg-carmesi px-2" onClick={() => write(":")}>
-                :
+
+              <div className="flex justify-center space-x-2">
+                <div id="EraseButton" className="px-5 py-2 rounded-full bg-black text-white text-center" onClick={erase}>DEL</div>
+                <div
+                  className="w-60 h-20 rounded-full bg-black border-4 border-black"
+                  onClick={() => write(" ")}
+                ></div>
+                <div id="LineBreakButton" className="px-5 py-2  rounded-full bg-white border-4 border-black text-center" onClick={() => write("\n")}>{"->"}</div>
               </div>
             </div>
             <div className="flex justify-center">
@@ -257,7 +269,7 @@ const Home: NextPage = () => {
               ></div>
               <div
                 id="LetterSelector"
-                className="text-8xl space-x-10 flex justify-center"
+                className="text-9xl space-x-10 flex justify-center font-mono"
               >
                 <div
                   onClick={() => {
@@ -308,7 +320,7 @@ const Home: NextPage = () => {
             className={
               listening
                 ? "type-button text-white absolute right-0 top-1/4"
-                : "type-button absolute right-0 top-1/4 bg-black  text-white"
+                : "type-button absolute left-0 top-1/4 bg-black  text-white"
             }
             onClick={toggleAudio}
           >
@@ -371,15 +383,15 @@ const Home: NextPage = () => {
       </div>
       <div
         id="WriteContainer"
-        className="text-6xl text-center mt-10 flex justify-center space-x-10 uppercase"
+        className="text-8xl text-center mt-2 flex justify-center space-x-10 uppercase"
       >
         <div className="w-1/4 flex justify-end">
-          <div className="bg-carmesi h-20 w-20 my-auto" onClick={erase}></div>
+          
         </div>
-        <div className="w-2/5 flex justify-center">
+        <div className="w-2/6 mt-30 flex justify-center">
           <pre
             id="TextContainer"
-            className="border-2 border-gray-200 h-32 text-right w-full"
+            className="border-2 border-gray-200 h-44 text-right w-full"
             ref={writeContainerRef}
             style={{
               whiteSpace: "pre-wrap",
@@ -400,10 +412,7 @@ const Home: NextPage = () => {
           </pre>
         </div>
         <div className="w-1/4 flex justify-start ">
-          <div
-            className="bg-carmesi h-20 w-20 my-auto"
-            onClick={() => write("\n")}
-          ></div>
+         
         </div>
       </div>
       <div

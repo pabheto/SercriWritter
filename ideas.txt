@@ -1,0 +1,39 @@
+Al encender el ordenador, sale un icono grande con la aplicación del programa para que se pueda abrir el programa solo
+Poner el icono circular con una imágen de sergio
+Arriba del círculo esquivando barreras como icono
+
+Tamaño al 150%
+
+Botón a la izquierda a parte del que ya hay para poner herramientas
+- Abrir aplicaciones
+- Abrir navegador
+
+Herramientas específicas de cada uno dependiendo de cual se abra
+Abrir teleprompter, editar documento...
+
+Gestor de pestañas
+
+
+Interrogación, paréntesis y corchetes, botones de doble clickk, un toque abre, doble toque cierra
+
+Guión: un toque guión, doble toque un guión bajo
+
+Mover el layout hacia la derecha, como columna independiente
+
+
+Meter el audio dentro de las herramientas de documento
+
+Cuadrados flechas negras, cercar las letras
+
+Coma y punto y coma mismo botón, lo mismo con punto y dos puntos
+
+Arriba, en accesos rápidos, ", ' (simple y doble)
+Algunos símbolos en la última tecla del teclado <, >, (), [], {}
+
+
+5 botones de puntuación que sergio usa normalmente:
+
+Layout para tener más espacio para el texto
+Poner botones a ambos lados de las flechas
+
+Para el próximo día, traer explorador de archivos.
